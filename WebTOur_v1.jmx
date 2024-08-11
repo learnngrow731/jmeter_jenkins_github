@@ -54,7 +54,7 @@
           <intProp name="LoopController.loops">-1</intProp>
         </elementProp>
         <stringProp name="ThreadGroup.num_threads">2</stringProp>
-        <stringProp name="ThreadGroup.ramp_time">10</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">1</stringProp>
         <longProp name="ThreadGroup.start_time">1370726934000</longProp>
         <longProp name="ThreadGroup.end_time">1370726934000</longProp>
         <boolProp name="ThreadGroup.scheduler">true</boolProp>
@@ -1484,7 +1484,7 @@
         <TestAction guiclass="TestActionGui" testclass="TestAction" testname="Flow Control Action" enabled="true">
           <intProp name="ActionProcessor.action">1</intProp>
           <intProp name="ActionProcessor.target">0</intProp>
-          <stringProp name="ActionProcessor.duration">30000</stringProp>
+          <stringProp name="ActionProcessor.duration">20000</stringProp>
         </TestAction>
         <hashTree/>
       </hashTree>
