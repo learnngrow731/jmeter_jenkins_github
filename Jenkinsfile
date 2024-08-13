@@ -3,8 +3,7 @@ pipeline {
 
     environment {
         JMETER_HOME = 'C:\\apache-jmeter-5.4.1' // Adjust this path as necessary
-        RESULTS_DIR = 'C:\\apache-jmeter-5.4.1\\bin\\PT Report' // Adjust as necessary
-        TEST_PLANS_DIR = '.' // Search the entire repo
+        RESULTS_DIR = 'C:\\apache-jmeter-5.4.1\\bin\\PT Report' // Adjust this path as necessary
     }
 
     stages {
@@ -26,7 +25,7 @@ pipeline {
             steps {
                 script {
                     // Find all .jmx files in the repository
-                    def testPlans = bat(script: "dir /b /s *.jmx", returnStdout: true).trim().split('\n')
+                    def testPlans = bat(script: 'dir /b /s *.jmx', returnStdout: true).trim().split('\n')
                     
                     // Loop through each .jmx file and execute
                     for (testPlan in testPlans) {
