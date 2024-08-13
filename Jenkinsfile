@@ -25,7 +25,7 @@ pipeline {
                     def jmxFile = 'C:\\Users\\SHAKEEL\\AppData\\Local\\Jenkins\\.jenkins\\workspace\\jmeter_jenkins_github_Pipeline\\test_plan.jmx'
 
                     // Use the Jenkins build number to create a unique result file name
-                    def resultFile = "C:\\apache-jmeter-5.4.1\\bin\\PT_Report\\results_${env.BUILD_NUMBER}.jtl"
+                    def resultFile = "C:\\apache-jmeter-5.4.1\\bin\\PT_Report\\results_Build_${env.BUILD_NUMBER}.jtl"
 
                     // Check if the .jmx file exists before running the JMeter test
                     if (fileExists(jmxFile)) {
@@ -42,7 +42,7 @@ pipeline {
             steps {
                 echo 'Publishing results...'
                 // Archive the result file with the build number in its name
-                archiveArtifacts artifacts: "C:\\apache-jmeter-5.4.1\\bin\\PT_Report\\results_${env.BUILD_NUMBER}.jtl", allowEmptyArchive: true
+                archiveArtifacts artifacts: "C:\\apache-jmeter-5.4.1\\bin\\PT_Report\\results_Build_${env.BUILD_NUMBER}.jtl", allowEmptyArchive: true
             }
         }
     }
