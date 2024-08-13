@@ -29,13 +29,16 @@ pipeline {
 
                     // Loop through each .jmx file and execute
                     for (testPlan in testPlans) {
-                        // Create a safe filename for results
-                        def safeTestPlan = testPlan.replaceAll('[<>:"/\\|?*]', '_') // Sanitize filename
-                        def resultFile = "${env.RESULTS_DIR}\\${safeTestPlan}.jtl"
+                        def testPlanFile = testPlan.trim() // Clean up any extra whitespace
+                        if (testPlanFile) {
+                            // Create a safe filename for results
+                            def safeTestPlan = testPlanFile.replaceAll('[<>:"/\\|?*]', '_') // Sanitize filename
+                            def resultFile = "${env.RESULTS_DIR}\\${safeTestPlan}.jtl"
 
-                        // Run JMeter test
-                        echo "Running test plan: ${testPlan}"
-                        bat "\"${env.JMETER_HOME}\\bin\\jmeter.bat\" -n -t \"${testPlan}\" -l \"${resultFile}\""
+                            // Run JMeter test
+                            echo "Running test plan: ${testPlanFile}"
+                            bat "\"${env.JMETER_HOME}\\bin\\jmeter.bat\" -n -t \"${testPlanFile}\" -l \"${resultFile}\""
+                        }
                     }
                 }
             }
