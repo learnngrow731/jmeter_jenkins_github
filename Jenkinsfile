@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         JMETER_HOME = 'C:\\apache-jmeter-5.4.1' // Path to JMeter installation
-        RESULTS_DIR = 'C:\\apache-jmeter-5.4.1\\bin\\PT Report' // Directory to save results
+        RESULTS_DIR = 'C:\\apache-jmeter-5.4.1\\bin\\PT_Report' // Directory to save results
     }
 
     stages {
@@ -37,7 +37,9 @@ pipeline {
 
                             // Run JMeter test
                             echo "Running test plan: ${testPlanFile}"
-                            bat "\"${env.JMETER_HOME}\\bin\\jmeter.bat\" -n -t \"${testPlanFile}\" -l \"${resultFile}\""
+                            bat """
+                            "${env.JMETER_HOME}\\bin\\jmeter.bat" -n -t "${testPlanFile}" -l "${resultFile}"
+                            """
                         }
                     }
                 }
