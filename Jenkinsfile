@@ -2,8 +2,8 @@ pipeline {
     agent any
 
     environment {
-        JMETER_HOME = 'C:\\apache-jmeter-5.4.1' // Adjust this path as necessary
-        RESULTS_DIR = 'C:\\apache-jmeter-5.4.1\\bin\\PT Report' // Adjust this path as necessary
+        JMETER_HOME = 'C:\\apache-jmeter-5.4.1' // Update this path if necessary
+        RESULTS_DIR = 'C:\\apache-jmeter-5.4.1\\bin\\PT Report' // Update this path if necessary
     }
 
     stages {
@@ -26,12 +26,14 @@ pipeline {
                 script {
                     // Find all .jmx files in the repository
                     def testPlans = bat(script: 'dir /b /s *.jmx', returnStdout: true).trim().split('\n')
-                    
+
                     // Loop through each .jmx file and execute
                     for (testPlan in testPlans) {
+                        // Create a safe filename for results
                         def safeTestPlan = testPlan.replaceAll('[<>:"/\\|?*]', '_') // Sanitize filename
                         def resultFile = "${env.RESULTS_DIR}\\${safeTestPlan}.jtl"
-                        
+
+                        // Run JMeter test
                         echo "Running test plan: ${testPlan}"
                         bat "\"${env.JMETER_HOME}\\bin\\jmeter.bat\" -n -t \"${testPlan}\" -l \"${resultFile}\""
                     }
