@@ -2,9 +2,9 @@ pipeline {
     agent any
 
     environment {
-        JMETER_HOME = 'C:\\apache-jmeter-5.4.1' // Adjust this path to your JMeter installation
-        RESULTS_DIR = 'C:\\apache-jmeter-5.4.1\\bin\\PT Report' // Adjust this path to where you want to store results
-        TEST_PLANS_DIR = '' // Leave empty to search the entire repo or specify directory
+        JMETER_HOME = 'C:\\apache-jmeter-5.4.1' // Adjust this path as necessary
+        RESULTS_DIR = 'C:\\apache-jmeter-5.4.1\\bin\\PT Report' // Adjust as necessary
+        TEST_PLANS_DIR = '.' // Search the entire repo
     }
 
     stages {
@@ -26,8 +26,7 @@ pipeline {
             steps {
                 script {
                     // Find all .jmx files in the repository
-                    def searchDir = env.TEST_PLANS_DIR ? env.TEST_PLANS_DIR : '.'
-                    def testPlans = bat(script: "dir /b /s ${searchDir}\\*.jmx", returnStdout: true).trim().split('\n')
+                    def testPlans = bat(script: "dir /b /s *.jmx", returnStdout: true).trim().split('\n')
                     
                     // Loop through each .jmx file and execute
                     for (testPlan in testPlans) {
