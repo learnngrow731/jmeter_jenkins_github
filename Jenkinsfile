@@ -24,24 +24,9 @@ pipeline {
         stage('Run JMeter Tests') {
             steps {
                 script {
-                    // Find all .jmx files in the repository
-                    def testPlans = bat(script: 'dir /b /s *.jmx', returnStdout: true).trim().split('\r?\n')
-
-                    // Loop through each .jmx file and execute
-                    for (testPlan in testPlans) {
-                        def testPlanFile = testPlan.trim() // Clean up any extra whitespace
-                        if (testPlanFile) {
-                            // Create a safe filename for results
-                            def safeTestPlan = testPlanFile.replaceAll('[<>:"/\\|?*]', '_') // Sanitize filename
-                            def resultFile = "${env.RESULTS_DIR}\\${safeTestPlan}.jtl"
-
-                            // Run JMeter test
-                            echo "Running test plan: ${testPlanFile}"
-                            bat """
-                            "${env.JMETER_HOME}\\bin\\jmeter.bat" -n -t "${testPlanFile}" -l "${resultFile}"
-                            """
-                        }
-                    }
+                    def jmxFile = bat(script: 'dir /b /s *.jmx', returnStdout: true).trim()
+                    def resultFile = "C:\\apache-jmeter-5.4.1\\bin\\PT_Report\\results.jtl"
+                    bat "\"C:\\apache-jmeter-5.4.1\\bin\\jmeter.bat\" -n -t \"${jmxFile}\" -l \"${resultFile}\""
                 }
             }
         }
