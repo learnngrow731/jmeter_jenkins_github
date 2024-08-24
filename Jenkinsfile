@@ -49,7 +49,7 @@ pipeline {
 
     post {
         always {
-            echo 'Build completed'
+            echo '******** Congratulations !!!! Your Build is successfully completed **********'
         }
     }
 }
